@@ -1,0 +1,30 @@
+POST http://localhost:9000/api/items
+Content-Type: application/json
+
+{
+"title": "젤다의 전설",
+"price": 1000,
+"availableStock": 10,
+"detail": "초록색 옷 입은 애가 젤다죠",
+"itemStatus": "SELL"
+}
+###
+
+GET http://localhost:9000/api/items/1
+Content-Type: application/json
+###
+
+GET http://localhost:9000/api/items
+Content-Type: application/json
+###
+
+PUT http://localhost:9000/api/items/1
+Content-Type: application/json
+
+{
+  "title": "젤다의 전설2",
+  "price": 1000,
+  "availableStock": 10,
+  "detail": "초록색 옷 입은 애가 젤다죠2",
+  "itemStatus": "SELL"
+}

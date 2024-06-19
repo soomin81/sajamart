@@ -51,11 +51,11 @@ public class Item {
         this.itemStatus = itemStatus;
     }
 
-//    public void update(ItemRequest itemUpdateRequest) {
-//        this.title = itemUpdateRequest.getTitle();
-//        this.price = itemUpdateRequest.getPrice();
-//        this.availableStock = itemUpdateRequest.getAvailableStock();
-//        this.detail = itemUpdateRequest.getDetail();
-//        this.itemStatus = itemUpdateRequest.getItemStatus();
-//    }
+    public void update(ItemRequest itemUpdateRequest) {
+        this.title = itemUpdateRequest.getTitle();
+        this.price = itemUpdateRequest.getPrice();
+        this.availableStock = itemUpdateRequest.getAvailableStock();
+        this.detail = itemUpdateRequest.getDetail();
+        this.itemStatus = itemUpdateRequest.getItemStatus();
+    }
 }

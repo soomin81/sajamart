@@ -19,3 +19,6 @@ spring:
 
   config:
     import: optional:configserver:http://localhost:9001
+
+server:
+  port: 9000
