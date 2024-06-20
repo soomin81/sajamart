@@ -28,3 +28,7 @@ Content-Type: application/json
   "detail": "초록색 옷 입은 애가 젤다죠2",
   "itemStatus": "SELL"
 }
+###
+
+DELETE http://localhost:9000/api/items/1
+Content-Type: application/json

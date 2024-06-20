@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import soomin.park.sajamart.config.error.exception.ItemNotFoundException;
 
 @RequiredArgsConstructor // final이 붙거나 @NotNull이 붙은 필드의 생성자 추가
 @Service // 빈으로 등록
@@ -29,7 +30,9 @@ public class ItemService {
 
     // 상품 삭제
     public void delete(long id) {
-        itemRepository.deleteById(id);
+        Item item = itemRepository.findById(id)
+                .orElseThrow(ItemNotFoundException::new);
+        itemRepository.delete(item);
     }
 
     // 상품 수정

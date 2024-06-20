@@ -40,7 +40,6 @@ public class ItemController {
     @GetMapping
     public CollectionModel<EntityModel<Item>> findAllItems(Pageable pageable) {
 
-
         List<EntityModel<Item>> items = itemService.findAll(pageable)
                 .stream()
                 .map(item -> EntityModel.of(item,
