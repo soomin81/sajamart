@@ -2,72 +2,73 @@ package soomin.park.sajamart.api.item;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.MediaTypes;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
-import java.util.List;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RequiredArgsConstructor
 @RestController // HTTP Response Body에 객체 데이터를 JSON 형식으로 반환하는 컨트롤러
 @RequestMapping(value = "/api/items", produces = MediaTypes.HAL_JSON_VALUE)
 public class ItemController {
 
-    private final ItemService itemService;
+    private final ItemService service;
+    private final ItemModelAssembler assembler;
 
+    // 상품 등록
     @PostMapping
     public ResponseEntity<EntityModel<Item>> addItem(@RequestBody @Validated ItemRequest request) {
 
-        Item item = itemService.save(request);
+        var item = service.save(request);
+        var entityModel = assembler.toModel(item);
+        entityModel.add(Link.of("/docs/index.html#resources-events-create").withRel("profile"));
 
-        EntityModel<Item> entityModel = EntityModel.of(item,
-                linkTo(ItemController.class).slash(item.getId()).withSelfRel(),
-                linkTo(ItemController.class).withRel("item-list")
-        );
-
-        var selfLinkBuilder = linkTo(ItemController.class).slash(item.getId());
-        URI createdUri = selfLinkBuilder.toUri();
-
-        return ResponseEntity.created(createdUri).body(entityModel);
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
     }
 
-    @GetMapping
-    public CollectionModel<EntityModel<Item>> findAllItems(Pageable pageable) {
-
-        List<EntityModel<Item>> items = itemService.findAll(pageable)
-                .stream()
-                .map(item -> EntityModel.of(item,
-                        linkTo(ItemController.class).slash(item.getId()).withSelfRel()))
-                .toList();
-        return CollectionModel.of(items, linkTo(ItemController.class).withSelfRel());
-    }
-
+    // 특정 상품 조회
     @GetMapping("/{id}")
     public EntityModel<Item> findItem(@PathVariable long id) {
-        Item item = itemService.findById(id);
+        var item = service.findById(id);
 
-        return EntityModel.of(item,
-                linkTo(ItemController.class).slash(item.getId()).withSelfRel(),
-                linkTo(ItemController.class).slash(item.getId()).withRel("update"));
+        var entityModel  = assembler.toModel(item);
+        entityModel.add(Link.of("/docs/index.html#resources-events-create").withRel("profile"));
+
+        return entityModel;
     }
 
+    // 전체 상품 조회
+    @GetMapping
+    public PagedModel<EntityModel<Item>> findAllItems(Pageable pageable, PagedResourcesAssembler<Item> assembler) {
+        var page = service.findAll(pageable);
+        var pagedResources = assembler.toModel(page);
+        pagedResources.add(Link.of("/docs/index.html#resources-events-create").withRel("profile"));
+
+        return pagedResources;
+    }
+
+    // 상품 수정
+    @PutMapping("/{id}")
+    public ResponseEntity<EntityModel<Item>> updateItem(@PathVariable long id, @RequestBody ItemRequest request) {
+        var item = service.update(id, request);
+        var entityModel = assembler.toModel(item);
+        entityModel.add(Link.of("/docs/index.html#resources-events-create").withRel("profile"));
+
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
+    }
+
+    // 상품 삭제
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteArticle(@PathVariable long id) {
-        itemService.delete(id);
-        return ResponseEntity.ok()
-                .build();
-    }
+        service.delete(id);
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Item> updateItem(@PathVariable long id, @RequestBody ItemRequest request) {
-        Item updatedItem = itemService.update(id, request);
-        return ResponseEntity.ok()
-                .body(updatedItem);
+        return ResponseEntity
+                .noContent()
+                .build();
     }
 }

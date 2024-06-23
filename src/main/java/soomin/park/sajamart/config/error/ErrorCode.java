@@ -12,10 +12,9 @@ public enum ErrorCode {
     BAD_REQUEST(HttpStatus.BAD_REQUEST, "E4", "잘못된 요청입니다."),
     ITEM_NOT_FOUND(HttpStatus.NOT_FOUND, "I1", "존재하지 않는 상품입니다.");
 
-    private final String message;
-
-    private final String code;
     private final HttpStatus status;
+    private final String code;
+    private final String message;
 
     ErrorCode(final HttpStatus status, final String code, final String message) {
         this.status = status;

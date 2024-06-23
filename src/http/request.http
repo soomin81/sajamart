@@ -1,5 +1,6 @@
 POST http://localhost:9000/api/items
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJwYnNGOVpBNkNvUGdRLUx4X29BNE9xcmFqSFM3X0Uycy1FSy13QlJXREQ4In0.eyJleHAiOjE3MTkxNTcyMDksImlhdCI6MTcxOTE1NzE0OSwianRpIjoiZTI5ZWRhZGYtZDg0Zi00ODU4LThmMWQtMTRiN2QyOWY3YTg5IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5OTk5L3JlYWxtcy9tYXN0ZXIiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNDRlMTY4MjgtYTE2YS00OGQwLTg4NTktOGM3YjI5ZWEyMTA0IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoic2FqYW1hcnQiLCJzZXNzaW9uX3N0YXRlIjoiYjdmY2Q4NGEtOWQwOS00NjI1LWEyMjUtMzcxNTgxN2E0ZjM0IiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIvKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1tYXN0ZXIiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiYjdmY2Q4NGEtOWQwOS00NjI1LWEyMjUtMzcxNTgxN2E0ZjM0IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInVzZXJfbmFtZSI6ImpvaG4iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJqb2huIn0.eg4a9fn1P69jQz0dnLRM5sI4Dd2f3e7rQ7KHIcAmzancooob3lACubezT6b3p1U4mUAg_aIxReo2cQ4IyGd-7KhHMbKiFyzwcqijBuKLML6Ck6tuhM_g69QaZHcFA2I4usoiqxZ3iXmJNPVZNcIuxdL70YGYn1OnJ2pKyp3OoBGmK2IXOlZcTPEDDU2HlztcFTtFbc2cmyCWS4DVqpa1u9Q9la4cvYBHTmdeUjW86eRR96jK_OeZ4w2qkIXpjAOAa2oUq863NW7QYYSvwbUDIaYNyE2nHbKtw1i2uKdlo4dEIQesy_Vwt63G94HCRz2BCButc0eu8INKSIVZE_RN6Q
 
 {
 "title": "젤다의 전설",
@@ -14,7 +15,7 @@ GET http://localhost:9000/api/items/1
 Content-Type: application/json
 ###
 
-GET http://localhost:9000/api/items
+GET http://localhost:9000/api/items?page=0&size=10
 Content-Type: application/json
 ###
 
@@ -32,3 +33,14 @@ Content-Type: application/json
 
 DELETE http://localhost:9000/api/items/1
 Content-Type: application/json
+
+###
+POST http://localhost:9999/realms/master/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password &
+client_id=sajamart &
+scope=sajamart:read &
+username=john &
+password=password
+###

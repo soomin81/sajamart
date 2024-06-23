@@ -23,9 +23,10 @@ public class ItemService {
         return itemRepository.findAll(pageable);
     }
 
+    // 특정 상품 조회
     public Item findById(long id) {
         return itemRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("not found: " + id));
+                .orElseThrow(ItemNotFoundException::new);
     }
 
     // 상품 삭제
@@ -39,7 +40,7 @@ public class ItemService {
     @Transactional
     public Item update(long id, ItemRequest request) {
         Item item = itemRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("not found: " + id));
+                .orElseThrow(ItemNotFoundException::new);
         item.update(request);
         return item;
     }
