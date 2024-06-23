@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+
 @RequiredArgsConstructor
 @RestController // HTTP Response Body에 객체 데이터를 JSON 형식으로 반환하는 컨트롤러
 @RequestMapping(value = "/api/items", produces = MediaTypes.HAL_JSON_VALUE)
@@ -22,7 +24,7 @@ public class ItemController {
 
         var item = service.save(request);
         var entityModel = assembler.toModel(item);
-        entityModel.add(Link.of("/docs/index.html#resources-events-create").withRel("profile"));
+        entityModel.add(Link.of("/docs/index.html#_상품_조회").withRel("profile"));
 
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())

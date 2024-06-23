@@ -1,6 +1,6 @@
 :snippets: build/generated-snippets
 
-= 사자마드 REST API
+= 사자마트 REST API
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
@@ -8,23 +8,12 @@
 :toclevels: 1
 :sectlinks:
 
-== 글 단건조회
+== 상품 조회
 
 === 요청
-
-
-
-
-=== 응답
-
-
-
-
-== 글 작성
-
-=== 요청
-
-
+include::{snippets}/items/http-request.adoc[]
+include::{snippets}/items/request-fields.adoc[]
 
 === 응답
-
+include::{snippets}/items/http-response.adoc[]
+include::{snippets}/items/response-fields.adoc[]
