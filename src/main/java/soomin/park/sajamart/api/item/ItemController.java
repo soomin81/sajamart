@@ -8,8 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-
 @RequiredArgsConstructor
 @RestController // HTTP Response Body에 객체 데이터를 JSON 형식으로 반환하는 컨트롤러
 @RequestMapping(value = "/api/items", produces = MediaTypes.HAL_JSON_VALUE)
@@ -33,23 +31,24 @@ public class ItemController {
 
     // 특정 상품 조회
     @GetMapping("/{id}")
-    public EntityModel<Item> findItem(@PathVariable long id) {
+    public ResponseEntity<EntityModel<Item>> findItem(@PathVariable long id) {
         var item = service.findById(id);
 
         var entityModel  = assembler.toModel(item);
         entityModel.add(Link.of("/docs/index.html#resources-events-create").withRel("profile"));
 
-        return entityModel;
+        return ResponseEntity.ok(entityModel);
     }
 
     // 전체 상품 조회
     @GetMapping
-    public PagedModel<EntityModel<Item>> findAllItems(Pageable pageable, PagedResourcesAssembler<Item> assembler) {
+    public ResponseEntity<PagedModel<EntityModel<Item>>> findAllItems(Pageable pageable,
+                                                                      PagedResourcesAssembler<Item> assembler) {
         var page = service.findAll(pageable);
         var pagedResources = assembler.toModel(page);
         pagedResources.add(Link.of("/docs/index.html#resources-events-create").withRel("profile"));
 
-        return pagedResources;
+        return ResponseEntity.ok(pagedResources);
     }
 
     // 상품 수정

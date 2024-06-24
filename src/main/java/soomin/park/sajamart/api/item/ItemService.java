@@ -31,7 +31,7 @@ public class ItemService {
 
     // 상품 삭제
     public void delete(long id) {
-        Item item = itemRepository.findById(id)
+        var item = itemRepository.findById(id)
                 .orElseThrow(ItemNotFoundException::new);
         itemRepository.delete(item);
     }
@@ -39,7 +39,7 @@ public class ItemService {
     // 상품 수정
     @Transactional
     public Item update(long id, ItemRequest request) {
-        Item item = itemRepository.findById(id)
+        var item = itemRepository.findById(id)
                 .orElseThrow(ItemNotFoundException::new);
         item.update(request);
         return item;

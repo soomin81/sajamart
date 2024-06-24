@@ -3,7 +3,6 @@ package soomin.park.sajamart.config.error;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,9 +17,9 @@ import java.util.Map;
 @RestControllerAdvice // 모든 컨트롤러에서 발생하는 예외를 잡아서 처리
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(MethodArgumentNotValidException.class) // HttpRequestMethodNotSupportedException 예외를 잡아서 처리
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     @RequestMapping(produces = MediaTypes.HAL_JSON_VALUE)
-    protected ResponseEntity<ErrorResponse> handle(MethodArgumentNotValidException e, Errors errors) {
+    protected ResponseEntity<ErrorResponse> handle(MethodArgumentNotValidException e) {
         log.error("HttpRequestMethodNotSupportedException", e);
 
         Map<String, String> validation = new HashMap<>();
