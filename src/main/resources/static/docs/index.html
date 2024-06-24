@@ -446,13 +446,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_상품_조회">상품 조회</a></li>
+<li><a href="#_상품_등록">상품 등록</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_상품_조회"><a class="link" href="#_상품_조회">상품 조회</a></h2>
+<h2 id="_상품_등록"><a class="link" href="#_상품_등록">상품 등록</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_요청"><a class="link" href="#_요청">요청</a></h3>
@@ -461,7 +461,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /api/items HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/hal+json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJwYnNGOVpBNkNvUGdRLUx4X29BNE9xcmFqSFM3X0Uycy1FSy13QlJXREQ4In0.eyJleHAiOjE3MTkxNTg0OTEsImlhdCI6MTcxOTE1ODQzMSwianRpIjoiOWM3ZmI2MjctNTM0ZS00MTg1LWJiYmItODkyMjZjOTlhYjVkIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5OTk5L3JlYWxtcy9tYXN0ZXIiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNDRlMTY4MjgtYTE2YS00OGQwLTg4NTktOGM3YjI5ZWEyMTA0IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoic2FqYW1hcnQiLCJzZXNzaW9uX3N0YXRlIjoiNDY0NmU5Y2QtZjg3Ni00ZTQ3LTkyN2YtZDczN2FkOGJmZmE3IiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIvKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1tYXN0ZXIiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiNDY0NmU5Y2QtZjg3Ni00ZTQ3LTkyN2YtZDczN2FkOGJmZmE3IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInVzZXJfbmFtZSI6ImpvaG4iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJqb2huIn0.A983ZVcWLBxsJYz6QoqP7K5RVyyE6Sy-44kOfoE4BNsLhI-w4umvUXu4EUU3W3mdjFxZkxddVNO4Qq4RNuRTeQVZBlaQQvpm2H26q5nhtc0vAJTrX5GALDoLv7EFTgG56OeLsNxEBL4hD7vE4ShoMa22556fIUQu3eRXoY7ZD7C9ivPBqeosogLgcn40bWGJFCd1g9FqFYsVAhmvMuU3VCWVfq9XCmPvsW0X8A1DP_tTtVeUQ9Dw14YcQq_jZ3KFTx52gTV5a0pXbwfZV4eF9hyifgzLF_Jf2g2pU_tOyNblg5dacqAOBylMn_V67xiHybHr2a62cmVe8rxdVRADZA
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJwYnNGOVpBNkNvUGdRLUx4X29BNE9xcmFqSFM3X0Uycy1FSy13QlJXREQ4In0.eyJleHAiOjE3MTkyMzc4OTksImlhdCI6MTcxOTIzNzgzOSwianRpIjoiN2MxYWY0MTQtZWQxMS00YWRiLWJiN2QtNTY4OTFjZTQ4ZmZkIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5OTk5L3JlYWxtcy9tYXN0ZXIiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNDRlMTY4MjgtYTE2YS00OGQwLTg4NTktOGM3YjI5ZWEyMTA0IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoic2FqYW1hcnQiLCJzZXNzaW9uX3N0YXRlIjoiYTRmMjhlZTktNjczYS00NDUwLThmZjQtZmVhZTZjNWRlNTNlIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIvKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1tYXN0ZXIiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiYTRmMjhlZTktNjczYS00NDUwLThmZjQtZmVhZTZjNWRlNTNlIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInVzZXJfbmFtZSI6ImpvaG4iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJqb2huIn0.l8N6SnjhSNX0jYdWo2sJ_4B9KSdpTHTk3gn4Wa-MJboGzPKIXLyZYWKs0Xx5-CVvuCktOMSyk5BolIv8uZ80-_P2CCsuMWz-66YGaYIetU5EwNtmRdFDwN8hNSsIgsfA7e1GWcKgNWp8n_FlB_duyDnwQzL5hAyGSP1PJOlUxJcfVIPJXo4OXYG8lagjQQ_T9FhoimgnLPI9OpwKOuxnUB9SPuxiOYq8IAr_WmY8FF-xWsAfBPGiHRgntDt8B9PjBxsK7H_K-F_7m9xOqrseJKAXzCAguecwmrlvXw2jc2Gl_o_XwnorY-vQjHqawtt2PpxtGhRUVZxRHScJK_YFTg
 Content-Length: 165
 Host: localhost:8080
 
@@ -526,9 +526,9 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 433
+Content-Length: 424
 
-{"id":1,"title":"젤다의 전설 티어스 오브 더 킹덤","price":50000,"availableStock":9999,"detail":"3인칭 오픈 에어 액션 어드벤처","itemStatus":"SELL","createAt":"2024-06-24T01:00:32.1325054","updateAt":"2024-06-24T01:00:32.1325054","_links":{"self":{"href":"http://localhost:8080/api/items/1"},"itemList":{"href":"http://localhost:8080/api/items"},"profile":{"href":"/docs/index.html#resources-events-create"}}}</code></pre>
+{"id":1,"title":"젤다의 전설 티어스 오브 더 킹덤","price":50000,"availableStock":9999,"detail":"3인칭 오픈 에어 액션 어드벤처","itemStatus":"SELL","createAt":"2024-06-24T23:03:59.7359348","updateAt":"2024-06-24T23:03:59.7359348","_links":{"self":{"href":"http://localhost:8080/api/items/1"},"itemList":{"href":"http://localhost:8080/api/items"},"profile":{"href":"/docs/index.html#_상품_등록"}}}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -594,7 +594,7 @@ Content-Length: 433
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2024-06-24 00:58:42 +0900
+Last updated 2024-06-24 22:29:07 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">

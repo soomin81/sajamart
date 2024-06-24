@@ -22,7 +22,7 @@ public class ItemController {
 
         var item = service.save(request);
         var entityModel = assembler.toModel(item);
-        entityModel.add(Link.of("/docs/index.html#_상품_조회").withRel("profile"));
+        entityModel.add(Link.of("/docs/index.html#_상품_등록").withRel("profile"));
 
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
