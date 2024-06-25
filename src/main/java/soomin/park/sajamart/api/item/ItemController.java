@@ -35,7 +35,7 @@ public class ItemController {
         var item = service.findById(id);
 
         var entityModel  = assembler.toModel(item);
-        entityModel.add(Link.of("/docs/index.html#resources-events-create").withRel("profile"));
+        entityModel.add(Link.of("/docs/index.html").withRel("profile"));
 
         return ResponseEntity.ok(entityModel);
     }
@@ -46,7 +46,7 @@ public class ItemController {
                                                                       PagedResourcesAssembler<Item> assembler) {
         var page = service.findAll(pageable);
         var pagedResources = assembler.toModel(page);
-        pagedResources.add(Link.of("/docs/index.html#resources-events-create").withRel("profile"));
+        pagedResources.add(Link.of("/docs/index.html").withRel("profile"));
 
         return ResponseEntity.ok(pagedResources);
     }
@@ -56,7 +56,7 @@ public class ItemController {
     public ResponseEntity<EntityModel<Item>> updateItem(@PathVariable long id, @RequestBody ItemRequest request) {
         var item = service.update(id, request);
         var entityModel = assembler.toModel(item);
-        entityModel.add(Link.of("/docs/index.html#resources-events-create").withRel("profile"));
+        entityModel.add(Link.of("/docs/index.html").withRel("profile"));
 
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
