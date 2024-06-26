@@ -30,6 +30,24 @@ spring:
         jwt:
           issuer-uri: http://localhost:9999/realms/master
 
+# WAS 설정
 server:
   port: 9000
   shutdown: graceful
+
+# 로그 설정
+logging:
+  file:
+    name: /logs/application.log
+  logback:
+    rollingpolicy:
+      max-history: 7
+      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz
+  level:
+    org:
+      springframework: INFO
+      hibernate:
+        SQL: DEBUG
+        orm:
+          jdbc:
+            bind: TRACE
