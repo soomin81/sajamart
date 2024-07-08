@@ -1,24 +1,30 @@
-package soomin.park.sajamart.api.item;
+package soomin.park.sajamart.api.product;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController // HTTP Response Body에 객체 데이터를 JSON 형식으로 반환하는 컨트롤러
 @RequestMapping(value = "/api/items", produces = MediaTypes.HAL_JSON_VALUE)
-public class ItemController {
+public class ProductController {
 
-    private final ItemService service;
-    private final ItemModelAssembler assembler;
+    private final ProductService service;
+    private final ProductModelAssembler assembler;
 
     // 상품 등록
     @PostMapping
-    public ResponseEntity<EntityModel<Item>> addItem(@RequestBody @Validated ItemRequest request) {
+    public ResponseEntity<EntityModel<Product>> addItem(@RequestBody @Validated ProductRequest request, @AuthenticationPrincipal Jwt jwt) {
+
+      log.info(jwt.getClaim("user_name"));
 
         var item = service.save(request);
         var entityModel = assembler.toModel(item);
@@ -31,10 +37,10 @@ public class ItemController {
 
     // 특정 상품 조회
     @GetMapping("/{id}")
-    public ResponseEntity<EntityModel<Item>> findItem(@PathVariable long id) {
-        var item = service.findById(id);
+    public ResponseEntity<EntityModel<Product>> findItem(@PathVariable long id) {
+        var product = service.findById(id);
 
-        var entityModel  = assembler.toModel(item);
+        var entityModel  = assembler.toModel(product);
         entityModel.add(Link.of("/docs/index.html").withRel("profile"));
 
         return ResponseEntity.ok(entityModel);
@@ -42,8 +48,8 @@ public class ItemController {
 
     // 전체 상품 조회
     @GetMapping
-    public ResponseEntity<PagedModel<EntityModel<Item>>> findAllItems(Pageable pageable,
-                                                                      PagedResourcesAssembler<Item> assembler) {
+    public ResponseEntity<PagedModel<EntityModel<Product>>> findAllItems(Pageable pageable,
+                                                                         PagedResourcesAssembler<Product> assembler) {
         var page = service.findAll(pageable);
         var pagedResources = assembler.toModel(page);
         pagedResources.add(Link.of("/docs/index.html").withRel("profile"));
@@ -53,7 +59,7 @@ public class ItemController {
 
     // 상품 수정
     @PutMapping("/{id}")
-    public ResponseEntity<EntityModel<Item>> updateItem(@PathVariable long id, @RequestBody ItemRequest request) {
+    public ResponseEntity<EntityModel<Product>> updateItem(@PathVariable long id, @RequestBody ProductRequest request) {
         var item = service.update(id, request);
         var entityModel = assembler.toModel(item);
         entityModel.add(Link.of("/docs/index.html").withRel("profile"));
