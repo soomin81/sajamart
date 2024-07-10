@@ -46,5 +46,4 @@ public class GlobalExceptionHandler {
                 ErrorResponse.of(errorCode, validation),
                 errorCode.getStatus());
     }
-
 }

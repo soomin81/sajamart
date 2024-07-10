@@ -10,7 +10,7 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "E3", "서버 에러가 발생했습니다."),
     NOT_FOUND(HttpStatus.NOT_FOUND, "E4", "존재하지 않는 엔티티입니다."),
     BAD_REQUEST(HttpStatus.BAD_REQUEST, "E4", "잘못된 요청입니다."),
-    ITEM_NOT_FOUND(HttpStatus.NOT_FOUND, "I1", "존재하지 않는 상품입니다.");
+    PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "I1", "존재하지 않는 상품입니다.");
 
     private final HttpStatus status;
     private final String code;

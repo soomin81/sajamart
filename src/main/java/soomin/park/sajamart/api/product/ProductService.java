@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import soomin.park.sajamart.config.error.exception.ItemNotFoundException;
+import soomin.park.sajamart.config.error.exception.ProductNotFoundException;
 
 @RequiredArgsConstructor // final이 붙거나 @NotNull이 붙은 필드의 생성자 추가
 @Service // 빈으로 등록
@@ -26,13 +26,13 @@ public class ProductService {
     // 특정 상품 조회
     public Product findById(long id) {
         return productRepository.findById(id)
-                .orElseThrow(ItemNotFoundException::new);
+                .orElseThrow(ProductNotFoundException::new);
     }
 
     // 상품 삭제
     public void delete(long id) {
         var item = productRepository.findById(id)
-                .orElseThrow(ItemNotFoundException::new);
+                .orElseThrow(ProductNotFoundException::new);
         productRepository.delete(item);
     }
 
@@ -40,7 +40,7 @@ public class ProductService {
     @Transactional
     public Product update(long id, ProductRequest request) {
         var product = productRepository.findById(id)
-                .orElseThrow(ItemNotFoundException::new);
+                .orElseThrow(ProductNotFoundException::new);
         product.update(request);
         return product;
     }

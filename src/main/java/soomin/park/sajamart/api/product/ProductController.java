@@ -11,6 +11,8 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import static org.springframework.hateoas.IanaLinkRelations.*;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController // HTTP Response Body에 객체 데이터를 JSON 형식으로 반환하는 컨트롤러
@@ -31,7 +33,7 @@ public class ProductController {
         entityModel.add(Link.of("/docs/index.html#_상품_등록").withRel("profile"));
 
         return ResponseEntity
-                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .created(entityModel.getRequiredLink(SELF).toUri())
                 .body(entityModel);
     }
 
@@ -65,7 +67,7 @@ public class ProductController {
         entityModel.add(Link.of("/docs/index.html").withRel("profile"));
 
         return ResponseEntity
-                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .created(entityModel.getRequiredLink(SELF).toUri())
                 .body(entityModel);
     }
 

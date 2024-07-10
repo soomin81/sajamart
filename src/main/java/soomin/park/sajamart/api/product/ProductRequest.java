@@ -36,5 +36,4 @@ public class ProductRequest {
                 .productStatus(productStatus)
                 .build();
     }
-
 }
