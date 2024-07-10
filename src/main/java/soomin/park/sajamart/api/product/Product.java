@@ -33,7 +33,7 @@ public class Product {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private ProductStatus productStatus;
+    private ProductStatus productStatus; // 상품 상태
 
     @CreatedDate // 엔티티가 생성될 때 생성 시간 저장
     private LocalDateTime createAt;

@@ -19,7 +19,9 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.util.HashMap;
+import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.hateoas.MediaTypes.HAL_JSON;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.http.HttpHeaders.LOCATION;
@@ -29,6 +31,7 @@ import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.li
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -47,6 +50,8 @@ class ProductControllerTest {
 
     @Autowired
     ProductRepository itemRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     @BeforeEach // 테스트 실행 전 실행하는 메서드
     public void setMockMvc() {
@@ -56,7 +61,6 @@ class ProductControllerTest {
     @DisplayName("addProduct: 상품 추가 성공")
     @Test
     public void addProduct() throws Exception {
-
         // given
         final ProductRequest request = ProductRequest.builder()
                 .name("젤다의 전설 티어스 오브 더 킹덤")
@@ -69,7 +73,7 @@ class ProductControllerTest {
         final String requestBody = objectMapper.writeValueAsString(request);
 
         // when
-        ResultActions resultActions = mockMvc.perform(post("/api/items")
+        ResultActions resultActions = mockMvc.perform(post("/api/product")
                         .contentType(APPLICATION_JSON_VALUE)
                         .accept(HAL_JSON)
                         .header("Authorization", "Bearer " + getAccessToken())
@@ -112,6 +116,30 @@ class ProductControllerTest {
                                 fieldWithPath("updateAt").description("수정일")
                         )
                 ));
+    }
+
+    @DisplayName("deleteProduct: 상품 삭제에 성공한다.")
+    @Test
+    public void deleteArticle() throws Exception {
+        // given
+        final String url = "/api/product/{id}";
+        Product savedProduct = productRepository.save(Product.builder()
+                .name("젤다의 전설 티어스 오브 더 킹덤")
+                .price(50000)
+                .stockQuantity(9999)
+                .description("3인칭 오픈 에어 액션 어드벤처")
+                .productStatus(SELL)
+                .build());
+
+        // when
+        mockMvc.perform(delete(url, savedProduct.getId())
+                        .contentType(APPLICATION_JSON_VALUE)
+                        .accept(HAL_JSON)
+                        .header("Authorization", "Bearer " + getAccessToken())).andExpect(status().isNoContent());
+
+        // then
+        List<Product> articles = productRepository.findAll();
+        assertThat(articles).isEmpty();
     }
 
     // 인증 토큰 가져오기

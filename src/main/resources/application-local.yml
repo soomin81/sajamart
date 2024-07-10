@@ -5,12 +5,14 @@ spring:
   lifecycle:
     timeout-per-shutdown-phase: 15s
 
+  # DB 접속 설정
   datasource:
     url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
     username: sa
     password: password
 
+  # JPA 자동생성 쿼리 로깅
   jpa:
     open-in-view: false
     show-sql: true
@@ -20,6 +22,7 @@ spring:
         show_sql: true
         use_sql_comments: true
 
+  # H2 DB 콘솔 사용
   h2:
     console:
       enabled: true
